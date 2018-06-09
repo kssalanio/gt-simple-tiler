@@ -42,8 +42,8 @@ libraryDependencies ++= Seq(
 
   "org.apache.spark"      %% "spark-core"       % "2.2.0" % Provided,
   "org.scalatest"         %%  "scalatest"       % "2.2.0" % Test,
-//  "org.apache.hadoop" % "hadoop-client"         % "2.7.5"
-  "com.lihaoyi" %% "pprint" % "0.4.3",
+  "org.apache.hadoop" % "hadoop-client"         % "2.7.5",
+  "com.lihaoyi" %% "pprint" % "0.4.3"
 
 //  "ch.cern.sparkmeasure" %% "spark-measure" % "0.11"
 )

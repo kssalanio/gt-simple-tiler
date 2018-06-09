@@ -1,13 +1,22 @@
 package simpletiler
 
+import java.io._
+
 import geotrellis.proj4.CRS
-import geotrellis.raster.MultibandTile
+import geotrellis.raster.io.geotiff.GeoTiff
 import geotrellis.raster.resample.Bilinear
-import geotrellis.spark.tiling.FloatingLayoutScheme
-import geotrellis.spark.{Metadata, MultibandTileLayerRDD, SpatialKey, TileLayerMetadata}
-import geotrellis.vector.ProjectedExtent
+import geotrellis.raster.{MultibandTile, _}
+import geotrellis.spark._
+import geotrellis.spark.io.Intersects
+import geotrellis.spark.io.hadoop._
+import geotrellis.spark.tiling._
+import geotrellis.util._
+import geotrellis.vector._
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
+import org.json4s.DefaultFormats
+import org.json4s.jackson.Json
+import Constants._
 
 object SimpleTilingFramework {
   def simpleReadTileQuery(run_rep: Int, src_raster_file_path: String, tile_out_path: String, meta_shp_path : String, qry_shp_path : String, output_gtif_path : String )
