@@ -9,6 +9,10 @@ organization := "com.ken"
 
 licenses := Seq("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.html"))
 
+// SBT Spark needs forking
+//fork in run := true
+//connectInput in run := true
+
 scalacOptions ++= Seq(
   "-deprecation",
   "-unchecked",
@@ -24,26 +28,39 @@ publishArtifact in Test := false
 pomIncludeRepository := { _ => false }
 
 resolvers ++= Seq(
-//  DefaultMavenRepository,
-//  "MavenRepository" at "http://central.maven.org/maven2",
+  "OSGeo Repository" at "http://download.osgeo.org/webdav/geotools/",
+//  "GeoMajas" at "http://maven.geomajas.org/",
+  DefaultMavenRepository,
 //  "Akka Repository" at "http://repo.akka.io/releases/",
 //  "JBoss 3PP" at "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/",
   "locationtech-releases" at "https://repo.locationtech.org/content/groups/releases",
   "locationtech-snapshots" at "https://repo.locationtech.org/content/groups/snapshots",
   "Boundless Repository" at "http://repo.boundlessgeo.com/main/",
-  "OSGeo Repository" at "http://download.osgeo.org/webdav/geotools/"
+//  "MavenRepository" at "http://central.maven.org/maven2",
+  Resolver.file("local", file(Path.userHome.absolutePath + "/.ivy2/local"))(Resolver.ivyStylePatterns)
+
 )
 
 libraryDependencies ++= Seq(
-//  "org.locationtech.geotrellis" %% "geotrellis-spark" % "1.2.0-RC2",
+//  "javax.media" % "jai_core" % "1.1.3" from "http://download.osgeo.org/webdav/geotools/javax/media/jai_core/1.1.3/jai_core-1.1.3.jar",
+//  "javax.media" % "jai_codec" % "1.1.3" from "http://download.osgeo.org/webdav/geotools/javax/media/jai_codec/1.1.3/jai_codec-1.1.3.jar",
+//  "javax.media" % "jai_imageio" % "1.1" from "http://download.osgeo.org/webdav/geotools/javax/media/jai_imageio/1.1/jai_imageio-1.1.jar",
+
   "org.locationtech.geotrellis" %% "geotrellis-spark" % "1.2.1",
   "org.locationtech.geotrellis" %% "geotrellis-proj4" % "1.2.1",
+  "org.geotools" % "gt-shapefile" % "17.4",
   "org.locationtech.geotrellis" %% "geotrellis-geotools" % "1.2.1",
 
+//    "org.locationtech.geotrellis" %% "geotrellis-proj4" % "2.0.0-M1",
+//    "org.locationtech.geotrellis" %% "geotrellis-spark" % "2.0.0-M1",
+//    "org.locationtech.geotrellis" %% "geotrellis-geotools" % "2.0.0-M1",
+
   "org.apache.spark"      %% "spark-core"       % "2.2.0" % Provided,
+//  "org.apache.spark"      %% "spark-core"       % "2.2.0",
   "org.scalatest"         %%  "scalatest"       % "2.2.0" % Test,
   "org.apache.hadoop" % "hadoop-client"         % "2.7.5",
   "com.lihaoyi" %% "pprint" % "0.4.3"
+
 
 //  "ch.cern.sparkmeasure" %% "spark-measure" % "0.11"
 )
